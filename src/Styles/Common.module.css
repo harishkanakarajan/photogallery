@@ -1,0 +1,42 @@
+.mainAppWrapper {
+    background-color: #f8f8f8;
+    min-height: 600px;
+    max-width: 1000px;
+    margin: 0 auto;
+    border-top: 2px solid #ececec;    
+}
+
+.listWrapper {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.imgWrapper {
+    padding: 6px;
+    float: left;
+    width: 18.75%;
+    border-radius: 6px;
+  }
+
+  .imgDesc {
+    padding: 15px;
+    text-align: center;
+  }
+
+  .imgWrapper img {
+    width: 100%;
+    height: auto;
+  }
+  
+  @media only screen and (max-width: 700px) {
+    .imgWrapper {
+      width: 48%;
+      margin: 6px 0;
+    }
+  }
+  
+  @media only screen and (max-width: 500px) {
+    .imgWrapper {
+      width: 100%;
+    }
+  }
