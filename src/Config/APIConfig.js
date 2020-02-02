@@ -6,6 +6,7 @@ const APIConfig = {
 
 export const APIEndPointConfig = {
     listAlbum: "albums",
+    userList: "users"
 }
 
 export default APIConfig

@@ -12,15 +12,20 @@
 }
 
 .imgWrapper {
-    padding: 6px;
+    padding: 15px 6px;
     float: left;
     width: 18.75%;
     border-radius: 6px;
+    text-align: center;
   }
 
   .imgDesc {
-    padding: 15px;
+    padding: 5px 5px;
     text-align: center;
+    font-style: italic;
+    font-size: 12px;
+    text-align: right;
+    color: #fff
   }
 
   .imgWrapper img {

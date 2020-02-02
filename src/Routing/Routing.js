@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Home from '../Components/Home'
 /* import ListPin from './Components/ListPinComponents/ListPin' */
 import NotFound from '../Components/Common/404'
+import ListPhoto from "../Components/PhotoList/ListPhoto";
 
 export default class Routing extends React.Component {
   render() {
@@ -13,6 +14,7 @@ export default class Routing extends React.Component {
         <Switch>
           {/* Available routes for the application */}
           <Route exact path="/" component={Home} />
+          <Route path="/photos/:id" component={ListPhoto} />
 
           {/* Default Routing 404 handler if invalid URLs are given */}
           <Route component={NotFound} />

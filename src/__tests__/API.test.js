@@ -5,7 +5,7 @@ import {InvokeGetAPI} from '../API/InvokeAPI'
 import APIConfig, {APIEndPointConfig} from '../Config/APIConfig'
 
 describe('Validating API data', () => {
-    it('returns data when sendMessage is called', done => {
+    it('Verify albums api return data', done => {
         var mock = new MockAdapter(axios);
         const data = { response: true };
         mock.onGet(APIConfig.apiBaseURL + APIEndPointConfig.listAlbum).reply(200, data);
@@ -15,4 +15,15 @@ describe('Validating API data', () => {
             done();
         });
     });    
+
+    it('Verify users api return data', done => {
+        var mock = new MockAdapter(axios);
+        const data = { response: true };
+        mock.onGet(APIConfig.apiBaseURL + APIEndPointConfig.listUsers).reply(200, data);
+
+        InvokeGetAPI(APIConfig.apiBaseURL + APIEndPointConfig.listUsers).then(response => {
+            expect(response).toEqual(data);
+            done();
+        });
+    });        
 })
