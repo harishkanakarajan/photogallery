@@ -36,5 +36,16 @@ describe('Validating API data', () => {
             expect(response).toEqual(data);
             done();
         });
-    });         
+    });
+    
+    it('Verify album name id api return data', done => {
+        var mock = new MockAdapter(axios);
+        const data = { response: true };
+        mock.onGet(APIConfig.apiBaseURL + APIEndPointConfig.album + "/1").reply(200, data);
+
+        InvokeGetAPI(APIConfig.apiBaseURL + APIEndPointConfig.album + "/1").then(response => {
+            expect(response).toEqual(data);
+            done();
+        });
+    });    
 })

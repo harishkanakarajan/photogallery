@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
 import classes from '../../Styles/Common.module.css'
 import folderClasses from '../../Styles/Gallery.module.css'
 import CommonConfig from '../../Config/CommonConfig'
@@ -24,7 +24,7 @@ class Album extends React.Component {
             <div className={classes.imgWrapper}>
                 <Link to={`/photos/${this.props.album.id}`} >
                     <div className={folderClasses.ffolder + " " + folderClasses.medium + " " + folderClasses.cyan} >
-                        <span>{this.props.album.title}</span>
+                        <span>{this.props.album.title.length > 25 ? this.props.album.title.substr(0,25)+"..." : this.props.album.title}</span>
 
                         <div className={classes.imgDesc}>{"By : " + this.getUserName(this.props.album.userId)}</div>
                     </div>

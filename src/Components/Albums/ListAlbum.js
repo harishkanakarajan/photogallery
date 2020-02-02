@@ -4,26 +4,37 @@ import { InvokeGetAPI } from '../../API/InvokeAPI'
 import APIConfig, { APIEndPointConfig } from '../../Config/APIConfig'
 import { listAlbums } from '../../Redux/Actions/ActionCreators'
 import Album from './Album'
+import Loader from '../Common/Loader'
 
 class ListAlbum extends React.Component {
     constructor(props) {
         super(props)
+
+        this.state = {
+            loader: false        
+        }
     }
     
     componentDidMount() {
-        (this.props.albums &&
-            InvokeGetAPI(APIConfig.apiBaseURL + APIEndPointConfig.listAlbum).then((res) => {
-                this.props.listAlbums(res)
-            }).catch((err) => {
-                console.log(err)
-            })            
-        ) 
+        this.setState({ loader: true }, () => {
+            (this.props.albums &&
+                InvokeGetAPI(APIConfig.apiBaseURL + APIEndPointConfig.listAlbum).then((res) => {
+                    this.props.listAlbums(res)
+                    this.setState({loader: false})
+                }).catch((err) => {
+                    console.log(err)
+                    this.setState({loader: false})
+                })            
+            ) 
+        })
     }
 
     render() {
         return (
-            this.props.albums.map(album =>
-                <Album album={album}/>
+            this.state.loader ? <Loader /> : this.props.albums.map(album =>
+                <div key={"Album_" + album.id}>
+                    <Album album={album}/>
+                </div>
             )
         )
     }

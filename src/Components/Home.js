@@ -13,13 +13,21 @@ import ListAlbum from './Albums/ListAlbum'
 class Home extends React.Component {
     constructor(props) {
         super(props)
+
+        this.state = {
+            loader: false
+        }
     }
-    
+
     componentDidMount() {
-        InvokeGetAPI(APIConfig.apiBaseURL + APIEndPointConfig.userList).then((res) => {
-            this.props.listUsers(res)
-        }).catch((err) => {
-            console.log(err)
+        this.setState({ loader: true }, () => {
+            InvokeGetAPI(APIConfig.apiBaseURL + APIEndPointConfig.userList).then((res) => {
+                this.props.listUsers(res)
+                this.setState({ loader: false })
+            }).catch((err) => {
+                console.log(err)
+                this.setState({ loader: false })
+            })
         })
     }
 
@@ -27,6 +35,10 @@ class Home extends React.Component {
         return (
             <div className={classes.mainAppWrapper}>
                 <Header />
+                
+                <div className={classes.breadcrumb}>
+                    Home
+                </div>
 
                 <div className={classes.listWrapper}>
                     <ListAlbum />
