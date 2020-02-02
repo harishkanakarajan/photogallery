@@ -9,3 +9,8 @@ export const listUsers = (users) => ({
     type: types.VF_NZ_USERLIST,
     payload: users,
 })
+
+export const listPhotos = (photos) => ({
+    type: types.VF_NZ_PHOTOLIST,
+    payload: photos,
+})

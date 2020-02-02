@@ -25,5 +25,16 @@ describe('Validating API data', () => {
             expect(response).toEqual(data);
             done();
         });
-    });        
+    });     
+    
+    it('Verify Photo list by id api return data', done => {
+        var mock = new MockAdapter(axios);
+        const data = { response: true };
+        mock.onGet(APIConfig.apiBaseURL + APIEndPointConfig.photoList + "/1").reply(200, data);
+
+        InvokeGetAPI(APIConfig.apiBaseURL + APIEndPointConfig.photoList + "/1").then(response => {
+            expect(response).toEqual(data);
+            done();
+        });
+    });         
 })

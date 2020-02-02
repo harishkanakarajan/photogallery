@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
 /* Importing neccesary components for Routing */
 import Home from '../Components/Home'
-/* import ListPin from './Components/ListPinComponents/ListPin' */
+
 import NotFound from '../Components/Common/404'
 import ListPhoto from "../Components/PhotoList/ListPhoto";
 

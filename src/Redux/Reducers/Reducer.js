@@ -17,6 +17,9 @@ export const rootReducer = (state = initialState, action) => {
         case types.VF_NZ_USERLIST:
             return { ...state, users: action.payload };
 
+            case types.VF_NZ_PHOTOLIST:
+                return { ...state, photos: action.payload };            
+
         default:
             return state;
     }

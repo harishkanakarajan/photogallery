@@ -1,30 +1,53 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import classes from '../../Styles/Common.module.css'
+import APIConfig, { APIEndPointConfig } from '../../Config/APIConfig'
+import { InvokeGetAPI } from '../../API/InvokeAPI'
+import { listPhotos } from '../../Redux/Actions/ActionCreators'
+import Header from '../Common/Header'
+import Footer from '../Common/Footer'
 
 class ListPhoto extends React.Component {
     constructor(props) {
         super(props)
     }
 
-    getUserName(userId) {
-        if(this.props.users===undefined || this.props.users==="" || this.props.users===null) {
-            return null
-        }
-
-        const userData = this.props.users.filter(user => user.id === userId)
-        return userData[0].name
+    componentDidMount() {
+        InvokeGetAPI(APIConfig.apiBaseURL + APIEndPointConfig.photoList + this.props.match.params.id).then((res) => {
+            this.props.listPhotos(res)
+        }).catch((err) => {
+            console.log(err)
+        })
     }
 
     render() {
+        console.log(this.props)
         return (
-            <div className={classes.imgWrapper}>
-                <div className={classes.imgBox}>
-                    <a target="_blank" href="img_5terre.jpg">
-                        <img src="https://via.placeholder.com/600/771796" alt="title" />
-                    </a>
-                    <div className={classes.imgDesc}>{this.getUserName(this.props.album.userId)}</div>
+            <div className={classes.mainAppWrapper}>
+                <Header />
+                <div className={classes.photoBox}>
+                    {(this.props.photos !== undefined && this.props.photos.length > 0) && this.props.photos.map(photo =>
+                        <div className={classes.photoHolder}>
+                            {/* thumbnail image wrapped in a link */}
+                            <a href={"#image_" + photo.id}>
+                                <img src={photo.thumbnailUrl} className={classes.thumbnail} />
+                            </a>
+
+                            {/* lightbox container hidden with CSS */}
+                            <a href="#_" className={classes.lightbox} id={"image_" + photo.id}>
+                                <img src={photo.url} />
+                                <div className={classes.photoDesc}>
+                                    <p>{photo.title}</p>
+                                </div>
+                            </a>
+
+                            <div className={classes.photoDesc}>
+                                <p>{photo.title.length > 30 ? photo.title.substr(0,30)+"..." : photo.title}</p>
+                            </div>
+                        </div>
+                    )}
                 </div>
+                <Footer />
             </div>
         )
     }
@@ -32,8 +55,12 @@ class ListPhoto extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        users: state.users
+        photos: state.photos
     }
 }
 
-export default connect(mapStateToProps)(ListPhoto)
+const mapDispatchToProps = dispatch => ({
+    listPhotos: (res) => dispatch(listPhotos(res)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListPhoto)
